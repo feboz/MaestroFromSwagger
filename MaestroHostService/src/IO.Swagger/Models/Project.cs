@@ -52,7 +52,7 @@ namespace IO.Swagger.Models
         /// Gets or Sets Description
         /// </summary>
         [DataMember(Name="description")]
-        public string Description { get; set; }
+        public int? Description { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

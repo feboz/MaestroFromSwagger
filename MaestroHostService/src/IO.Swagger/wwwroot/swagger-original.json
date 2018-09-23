@@ -1403,14 +1403,14 @@
           "description" : "The id of the belonging team."
         },
         "description" : {
-          "type" : "string"
+          "type" : "integer"
         }
       },
       "description" : "Data about a project",
       "example" : {
         "teamId" : "",
         "name" : "name",
-        "description" : "description",
+        "description" : 6,
         "projectId" : 0
       }
     },
