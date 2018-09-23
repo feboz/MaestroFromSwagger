@@ -86,6 +86,13 @@ namespace IO.Swagger.Models
         public string IsDisabled { get; set; }
 
         /// <summary>
+        /// Check for account validation.
+        /// </summary>
+        /// <value>Check for account validation.</value>
+        [DataMember(Name="lockedOut")]
+        public bool? LockedOut { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -99,6 +106,7 @@ namespace IO.Swagger.Models
             sb.Append("  PasswordHash: ").Append(PasswordHash).Append("\n");
             sb.Append("  LastPasswordChanged: ").Append(LastPasswordChanged).Append("\n");
             sb.Append("  IsDisabled: ").Append(IsDisabled).Append("\n");
+            sb.Append("  LockedOut: ").Append(LockedOut).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -164,6 +172,11 @@ namespace IO.Swagger.Models
                     IsDisabled == other.IsDisabled ||
                     IsDisabled != null &&
                     IsDisabled.Equals(other.IsDisabled)
+                ) && 
+                (
+                    LockedOut == other.LockedOut ||
+                    LockedOut != null &&
+                    LockedOut.Equals(other.LockedOut)
                 );
         }
 
@@ -189,6 +202,8 @@ namespace IO.Swagger.Models
                     hashCode = hashCode * 59 + LastPasswordChanged.GetHashCode();
                     if (IsDisabled != null)
                     hashCode = hashCode * 59 + IsDisabled.GetHashCode();
+                    if (LockedOut != null)
+                    hashCode = hashCode * 59 + LockedOut.GetHashCode();
                 return hashCode;
             }
         }

@@ -904,6 +904,7 @@
               "eMail" : "eMail"
             },
             "user" : {
+              "lockedOut" : true,
               "userType" : { },
               "isDisabled" : "isDisabled",
               "login" : "login",
@@ -1169,6 +1170,7 @@
             "eMail" : "eMail"
           },
           "user" : {
+            "lockedOut" : true,
             "userType" : { },
             "isDisabled" : "isDisabled",
             "login" : "login",
@@ -1228,6 +1230,7 @@
           "eMail" : "eMail"
         },
         "user" : {
+          "lockedOut" : true,
           "userType" : { },
           "isDisabled" : "isDisabled",
           "login" : "login",
@@ -1263,10 +1266,15 @@
         "isDisabled" : {
           "type" : "string",
           "description" : "Check for account abilitation."
+        },
+        "lockedOut" : {
+          "type" : "boolean",
+          "description" : "Check for account validation."
         }
       },
       "description" : "Data about the user.",
       "example" : {
+        "lockedOut" : true,
         "userType" : { },
         "isDisabled" : "isDisabled",
         "login" : "login",
