@@ -1391,7 +1391,7 @@
     "Project" : {
       "type" : "object",
       "properties" : {
-        "teamId" : {
+        "projectId" : {
           "type" : "integer",
           "description" : "The id of the project."
         },
@@ -1399,7 +1399,7 @@
           "type" : "string",
           "description" : "The name of the project."
         },
-        "projectId" : {
+        "teamId" : {
           "description" : "The id of the belonging team."
         },
         "description" : {
@@ -1408,10 +1408,10 @@
       },
       "description" : "Data about a project",
       "example" : {
-        "teamId" : 0,
+        "teamId" : "",
         "name" : "name",
         "description" : "description",
-        "projectId" : ""
+        "projectId" : 0
       }
     },
     "SceneMetadata" : {

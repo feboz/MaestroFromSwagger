@@ -31,8 +31,8 @@ namespace IO.Swagger.Models
         /// The id of the project.
         /// </summary>
         /// <value>The id of the project.</value>
-        [DataMember(Name="teamId")]
-        public int? TeamId { get; set; }
+        [DataMember(Name="projectId")]
+        public int? ProjectId { get; set; }
 
         /// <summary>
         /// The name of the project.
@@ -45,8 +45,8 @@ namespace IO.Swagger.Models
         /// The id of the belonging team.
         /// </summary>
         /// <value>The id of the belonging team.</value>
-        [DataMember(Name="projectId")]
-        public  ProjectId { get; set; }
+        [DataMember(Name="teamId")]
+        public  TeamId { get; set; }
 
         /// <summary>
         /// Gets or Sets Description
@@ -62,9 +62,9 @@ namespace IO.Swagger.Models
         {
             var sb = new StringBuilder();
             sb.Append("class Project {\n");
-            sb.Append("  TeamId: ").Append(TeamId).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  ProjectId: ").Append(ProjectId).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  TeamId: ").Append(TeamId).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -103,9 +103,9 @@ namespace IO.Swagger.Models
 
             return 
                 (
-                    TeamId == other.TeamId ||
-                    TeamId != null &&
-                    TeamId.Equals(other.TeamId)
+                    ProjectId == other.ProjectId ||
+                    ProjectId != null &&
+                    ProjectId.Equals(other.ProjectId)
                 ) && 
                 (
                     Name == other.Name ||
@@ -113,9 +113,9 @@ namespace IO.Swagger.Models
                     Name.Equals(other.Name)
                 ) && 
                 (
-                    ProjectId == other.ProjectId ||
-                    ProjectId != null &&
-                    ProjectId.Equals(other.ProjectId)
+                    TeamId == other.TeamId ||
+                    TeamId != null &&
+                    TeamId.Equals(other.TeamId)
                 ) && 
                 (
                     Description == other.Description ||
@@ -134,12 +134,12 @@ namespace IO.Swagger.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (TeamId != null)
-                    hashCode = hashCode * 59 + TeamId.GetHashCode();
-                    if (Name != null)
-                    hashCode = hashCode * 59 + Name.GetHashCode();
                     if (ProjectId != null)
                     hashCode = hashCode * 59 + ProjectId.GetHashCode();
+                    if (Name != null)
+                    hashCode = hashCode * 59 + Name.GetHashCode();
+                    if (TeamId != null)
+                    hashCode = hashCode * 59 + TeamId.GetHashCode();
                     if (Description != null)
                     hashCode = hashCode * 59 + Description.GetHashCode();
                 return hashCode;
