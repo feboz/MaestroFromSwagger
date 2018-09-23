@@ -46,7 +46,7 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>The id of the admin user.</value>
         [DataMember(Name="adminId")]
-        public  AdminId { get; set; }
+        public int? AdminId { get; set; }
 
         /// <summary>
         /// Gets or Sets Description

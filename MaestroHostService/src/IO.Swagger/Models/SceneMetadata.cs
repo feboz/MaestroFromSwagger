@@ -50,7 +50,7 @@ namespace IO.Swagger.Models
         /// </summary>
         /// <value>The extension of the file.</value>
         [DataMember(Name="extension")]
-        public  Extension { get; set; }
+        public string Extension { get; set; }
 
         /// <summary>
         /// Gets or Sets Description

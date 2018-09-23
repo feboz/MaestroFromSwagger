@@ -141,7 +141,7 @@ namespace IO.Swagger.Controllers
             // return StatusCode(500, default(ErrorResponse));
 
             string exampleJson = null;
-            exampleJson = "{\n  \"data\" : {\n    \"data\" : {\n      \"memebers\" : \"\",\n      \"team\" : {\n        \"teamId\" : 0,\n        \"name\" : \"name\",\n        \"adminId\" : \"\",\n        \"description\" : \"description\"\n      }\n    }\n  }\n}";
+            exampleJson = "{\n  \"data\" : {\n    \"data\" : {\n      \"memebers\" : \"\",\n      \"team\" : {\n        \"teamId\" : 0,\n        \"name\" : \"name\",\n        \"adminId\" : 6,\n        \"description\" : \"description\"\n      }\n    }\n  }\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<TeamResponse>(exampleJson)
@@ -186,7 +186,7 @@ namespace IO.Swagger.Controllers
             // return StatusCode(500, default(ErrorResponse));
 
             string exampleJson = null;
-            exampleJson = "{\n  \"memebers\" : \"\",\n  \"team\" : {\n    \"teamId\" : 0,\n    \"name\" : \"name\",\n    \"adminId\" : \"\",\n    \"description\" : \"description\"\n  }\n}";
+            exampleJson = "{\n  \"memebers\" : \"\",\n  \"team\" : {\n    \"teamId\" : 0,\n    \"name\" : \"name\",\n    \"adminId\" : 6,\n    \"description\" : \"description\"\n  }\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<TeamData>(exampleJson)
@@ -276,7 +276,7 @@ namespace IO.Swagger.Controllers
             // return StatusCode(500, default(ErrorResponse));
 
             string exampleJson = null;
-            exampleJson = "{\n  \"memebers\" : \"\",\n  \"team\" : {\n    \"teamId\" : 0,\n    \"name\" : \"name\",\n    \"adminId\" : \"\",\n    \"description\" : \"description\"\n  }\n}";
+            exampleJson = "{\n  \"memebers\" : \"\",\n  \"team\" : {\n    \"teamId\" : 0,\n    \"name\" : \"name\",\n    \"adminId\" : 6,\n    \"description\" : \"description\"\n  }\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<TeamData>(exampleJson)

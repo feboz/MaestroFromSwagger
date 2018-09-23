@@ -931,7 +931,7 @@
             "team" : {
               "teamId" : 0,
               "name" : "name",
-              "adminId" : "",
+              "adminId" : 6,
               "description" : "description"
             }
           }
@@ -948,7 +948,7 @@
       "example" : {
         "data" : {
           "data" : {
-            "extension" : "",
+            "extension" : "extension",
             "sceneId" : 0,
             "name" : "name",
             "description" : "description",
@@ -979,7 +979,7 @@
           "scenes" : [ {
             "learningPaths" : "",
             "sceneMetadata" : {
-              "extension" : "",
+              "extension" : "extension",
               "sceneId" : 0,
               "name" : "name",
               "description" : "description",
@@ -1001,7 +1001,7 @@
           }, {
             "learningPaths" : "",
             "sceneMetadata" : {
-              "extension" : "",
+              "extension" : "extension",
               "sceneId" : 0,
               "name" : "name",
               "description" : "description",
@@ -1039,7 +1039,7 @@
           "team" : {
             "teamId" : 0,
             "name" : "name",
-            "adminId" : "",
+            "adminId" : 6,
             "description" : "description"
           }
         }
@@ -1054,7 +1054,7 @@
       },
       "example" : {
         "data" : {
-          "extension" : "",
+          "extension" : "extension",
           "sceneId" : 0,
           "name" : "name",
           "description" : "description",
@@ -1092,7 +1092,7 @@
         "scenes" : [ {
           "learningPaths" : "",
           "sceneMetadata" : {
-            "extension" : "",
+            "extension" : "extension",
             "sceneId" : 0,
             "name" : "name",
             "description" : "description",
@@ -1114,7 +1114,7 @@
         }, {
           "learningPaths" : "",
           "sceneMetadata" : {
-            "extension" : "",
+            "extension" : "extension",
             "sceneId" : 0,
             "name" : "name",
             "description" : "description",
@@ -1198,7 +1198,7 @@
         "team" : {
           "teamId" : 0,
           "name" : "name",
-          "adminId" : "",
+          "adminId" : 6,
           "description" : "description"
         }
       }
@@ -1374,6 +1374,7 @@
           "description" : "The name of the team."
         },
         "adminId" : {
+          "type" : "integer",
           "description" : "The id of the admin user."
         },
         "description" : {
@@ -1384,7 +1385,7 @@
       "example" : {
         "teamId" : 0,
         "name" : "name",
-        "adminId" : "",
+        "adminId" : 6,
         "description" : "description"
       }
     },
@@ -1427,6 +1428,7 @@
           "$ref" : "#/definitions/File"
         },
         "extension" : {
+          "type" : "string",
           "description" : "The extension of the file."
         },
         "description" : {
@@ -1438,7 +1440,7 @@
       },
       "description" : "General info about the scene.",
       "example" : {
-        "extension" : "",
+        "extension" : "extension",
         "sceneId" : 0,
         "name" : "name",
         "description" : "description",
@@ -1478,7 +1480,7 @@
       "example" : {
         "learningPaths" : "",
         "sceneMetadata" : {
-          "extension" : "",
+          "extension" : "extension",
           "sceneId" : 0,
           "name" : "name",
           "description" : "description",
