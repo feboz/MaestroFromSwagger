@@ -1,0 +1,1790 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "This is the Host API for Maestro System",
+    "version" : "1.0.0",
+    "title" : "MaestroHostService",
+    "contact" : {
+      "email" : "febo74@gmail.com"
+    }
+  },
+  "host" : "virtserver.swaggerhub.com",
+  "basePath" : "/TheEdgeCompany/MaestroHostService/1.0.0",
+  "tags" : [ {
+    "name" : "myAccount",
+    "description" : "Calls for logged user account"
+  }, {
+    "name" : "teams",
+    "description" : "Handles user's teams"
+  }, {
+    "name" : "projects",
+    "description" : "Handles projects assigned to teams and the scenes structure"
+  }, {
+    "name" : "files",
+    "description" : "Allows to upload download file streams for the contents of the scene"
+  } ],
+  "schemes" : [ "https" ],
+  "consumes" : [ "application/json", "application/octet-stream" ],
+  "produces" : [ "application/json", "application/octet-stream" ],
+  "security" : [ {
+    "BasicAuth" : [ ]
+  } ],
+  "paths" : {
+    "/myAccount" : {
+      "get" : {
+        "tags" : [ "myAccount" ],
+        "summary" : "returns logged user account",
+        "description" : "Returns the account, authorizations, teams and projecs of the current logged user.\n",
+        "operationId" : "GetMyAccount",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/UserAccountResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/myAccount/password" : {
+      "put" : {
+        "tags" : [ "myAccount" ],
+        "description" : "Update the password for the current user.",
+        "operationId" : "PutMyAccountPassword",
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "password",
+          "description" : "The hashed password for the logged user.",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/team/{teamId}" : {
+      "get" : {
+        "tags" : [ "Teams" ],
+        "description" : "Returns the team by its supplied Id. Data contains also list of members.",
+        "operationId" : "GetTeam",
+        "parameters" : [ {
+          "name" : "teamId",
+          "in" : "path",
+          "description" : "The Id of the team.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/TeamResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Teams" ],
+        "description" : "Add a new Team. This is allowed only if current user is Admin.",
+        "operationId" : "PostTeam",
+        "parameters" : [ {
+          "name" : "teamId",
+          "in" : "path",
+          "description" : "The Id of the team.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "NewTeam",
+          "description" : "The new team.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/TeamData"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "schema" : {
+              "$ref" : "#/definitions/TeamData"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Teams" ],
+        "description" : "Update a given team. This is allowed only if the current user is Admin.",
+        "operationId" : "PutTeam",
+        "parameters" : [ {
+          "name" : "teamId",
+          "in" : "path",
+          "description" : "The id of the team to be updated.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "teamData",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/TeamData"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "schema" : {
+              "$ref" : "#/definitions/TeamData"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Teams" ],
+        "description" : "Delete a given team. This is allowed only if current user is Admin.",
+        "operationId" : "DeleteTeam",
+        "parameters" : [ {
+          "name" : "teamId",
+          "in" : "path",
+          "description" : "The team Id.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No content"
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/team/{teamId}/users" : {
+      "post" : {
+        "tags" : [ "Teams" ],
+        "description" : "Add a user to a team. This is alowed only if current user is Admin.",
+        "operationId" : "PostTeamUser",
+        "parameters" : [ {
+          "name" : "teamId",
+          "in" : "path",
+          "description" : "The id of the team to which add the user.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "newUser",
+          "description" : "The new user to be added.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/UserAccount"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "schema" : {
+              "$ref" : "#/definitions/UserAccountResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/team/{teamId}/users/{userId}" : {
+      "put" : {
+        "tags" : [ "Teams" ],
+        "description" : "Update a given user. This is allowed only if current logged user is Admin for the team.",
+        "operationId" : "PutTeamUser",
+        "parameters" : [ {
+          "name" : "teamId",
+          "in" : "path",
+          "description" : "The id of the team to which add the user.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "userId",
+          "in" : "path",
+          "description" : "The id of the user to be updated.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "UpdatedTeamUser",
+          "description" : "The update user.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/UserAccount"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Succes",
+            "schema" : {
+              "$ref" : "#/definitions/UserAccountResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Teams" ],
+        "description" : "Delete a given user from a given team, but not its account. This is allowed only if current user is Admin.",
+        "operationId" : "DeleteTeamUser",
+        "parameters" : [ {
+          "name" : "teamId",
+          "in" : "path",
+          "description" : "The id of the team from which the user must be deleted.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "userId",
+          "in" : "path",
+          "description" : "The id f the user to be deleted from the team.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "The user is not a memeber of the team."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/project/{projectId}" : {
+      "get" : {
+        "tags" : [ "Projects" ],
+        "description" : "Returns a given project, if it is assigned to a team for which the current user is member.",
+        "operationId" : "GetProject",
+        "parameters" : [ {
+          "name" : "projectId",
+          "in" : "path",
+          "description" : "The id of the project.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/ProjectResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "The project is not assigned to any team for which the current user is member."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Projects" ],
+        "description" : "Add a project to a given team. This is allowed only if the current user is Admin.",
+        "operationId" : "PostProject",
+        "parameters" : [ {
+          "name" : "projectId",
+          "in" : "path",
+          "description" : "The id of the project.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "NewProject",
+          "description" : "The data of the project to be added. It contains the team id also.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Project"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "Created",
+            "schema" : {
+              "$ref" : "#/definitions/ProjectResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Projects" ],
+        "description" : "Update a given project. This is allowed only if the current user is Admin.",
+        "operationId" : "PutProject",
+        "parameters" : [ {
+          "name" : "projectId",
+          "in" : "path",
+          "description" : "The id of the project to be updated.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "UpdatedProject",
+          "description" : "The updated project.",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Project"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/ProjectResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "The project does not exists."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Projects" ],
+        "description" : "Delete a given project. This is allowed only if current user is Admin.",
+        "operationId" : "DeleteProject",
+        "parameters" : [ {
+          "name" : "projectId",
+          "in" : "path",
+          "description" : "The id of the project.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/ProjectResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "The project does not exists."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/projectScenes/{projectId}/scenes" : {
+      "get" : {
+        "tags" : [ "Projects" ],
+        "description" : "Returns all the scene for a given project.",
+        "operationId" : "GetProjectScenes",
+        "parameters" : [ {
+          "name" : "projectId",
+          "in" : "path",
+          "description" : "The id of the project for which scenes are requested.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/SceneResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad Request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Projects" ],
+        "description" : "Add a new project assigned to a team. This is allowed only if the current user is Admin.",
+        "operationId" : "PostProjectScene",
+        "parameters" : [ {
+          "name" : "projectId",
+          "in" : "path",
+          "description" : "The id of the project for which the new scene must be added.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "NewScene",
+          "description" : "The new scene.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Scene"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/SceneResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "The project does not exists."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Projects" ],
+        "description" : "Update a given scene of a given project. This is allowed only if current user is Admin.",
+        "operationId" : "PutProjectScene",
+        "parameters" : [ {
+          "name" : "projectId",
+          "in" : "path",
+          "description" : "The id of the project for which the scene must be updated.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "in" : "body",
+          "name" : "UpdatedScene",
+          "description" : "The scene updated.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/Scene"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Success",
+            "schema" : {
+              "$ref" : "#/definitions/SceneResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "The project does not exists."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/projectScenes/{projectId}/scenes/{sceneId}" : {
+      "delete" : {
+        "tags" : [ "Projects" ],
+        "description" : "Delete a given scen. This is allowed only if the current user is Admin.",
+        "operationId" : "DeleteScene",
+        "parameters" : [ {
+          "name" : "projectId",
+          "in" : "path",
+          "description" : "The id of the project for which to delete the scene.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "sceneId",
+          "in" : "path",
+          "description" : "The id of the scene to delete.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No content"
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "403" : {
+            "description" : "Forbidden"
+          },
+          "404" : {
+            "description" : "The project or the scene does not exists."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/Files/{fileId}" : {
+      "get" : {
+        "tags" : [ "Files" ],
+        "description" : "Return a given file stream.",
+        "operationId" : "GetFile",
+        "parameters" : [ {
+          "name" : "fileId",
+          "in" : "path",
+          "description" : "The id of the file to download.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "The optional starting point of a file segment. If this is absent or 0 the starting point is the beginning of the file.",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "length",
+          "in" : "query",
+          "description" : "The optional length of the file. If this is absent or 0 the entire file length is considered.",
+          "required" : false,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/FileResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "404" : {
+            "description" : "The file does not exists."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Files" ],
+        "description" : "Upload a given file stream.",
+        "operationId" : "PostFile",
+        "parameters" : [ {
+          "name" : "fileId",
+          "in" : "path",
+          "description" : "The id of the file to download.",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "owner",
+          "in" : "path",
+          "description" : "The owner of the file.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "ownerId",
+          "in" : "path",
+          "description" : "The id of the owner.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/FileResponse"
+            }
+          },
+          "400" : {
+            "description" : "Bad request",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          },
+          "404" : {
+            "description" : "The file does not exists."
+          },
+          "500" : {
+            "description" : "Internal server error",
+            "schema" : {
+              "$ref" : "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "BasicAuth" : {
+      "description" : "Uses client authentication, client ID and secret needed to be sent in the request.",
+      "type" : "basic"
+    }
+  },
+  "definitions" : {
+    "UserAccountResponse" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/UserAccountData"
+        }
+      },
+      "example" : {
+        "data" : {
+          "assignedProjects" : "",
+          "userAccount" : {
+            "person" : {
+              "firstName" : "firstName",
+              "lastName" : "lastName",
+              "zipCode" : "zipCode",
+              "country" : "country",
+              "address" : "address",
+              "officePhone" : "officePhone",
+              "city" : "city",
+              "description" : "description",
+              "personId" : 6,
+              "company" : "company",
+              "cellPhone" : "cellPhone",
+              "eMail" : "eMail"
+            },
+            "user" : {
+              "lockedOut" : "",
+              "userType" : { },
+              "isDisabled" : "isDisabled",
+              "login" : "login",
+              "userId" : 0,
+              "passwordHash" : "passwordHash",
+              "lastPasswordChanged" : "2000-01-23T04:56:07.000+00:00"
+            }
+          },
+          "assignedTeams" : ""
+        }
+      }
+    },
+    "TeamResponse" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/TeamResponseData"
+        }
+      },
+      "example" : {
+        "data" : {
+          "data" : {
+            "memebers" : "",
+            "team" : {
+              "teamId" : 0,
+              "name" : "name",
+              "adminId" : "",
+              "description" : "description"
+            }
+          }
+        }
+      }
+    },
+    "ProjectResponse" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/ProjectResponseData"
+        }
+      },
+      "example" : {
+        "data" : {
+          "data" : {
+            "extension" : "",
+            "sceneId" : 0,
+            "name" : "name",
+            "description" : "description",
+            "landmark" : {
+              "size" : 1,
+              "name" : "name",
+              "sceneId" : 5,
+              "contentId" : 5,
+              "description" : "description",
+              "type" : { },
+              "content" : "content",
+              "fileId" : 6
+            },
+            "projectId" : 2
+          }
+        }
+      }
+    },
+    "SceneResponse" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/ScenesResponseData"
+        }
+      },
+      "example" : {
+        "data" : {
+          "scenes" : [ {
+            "learningPaths" : "",
+            "sceneMetadata" : {
+              "extension" : "",
+              "sceneId" : 0,
+              "name" : "name",
+              "description" : "description",
+              "landmark" : {
+                "size" : 1,
+                "name" : "name",
+                "sceneId" : 5,
+                "contentId" : 5,
+                "description" : "description",
+                "type" : { },
+                "content" : "content",
+                "fileId" : 6
+              },
+              "projectId" : 2
+            },
+            "contents" : "",
+            "scenarios" : "",
+            "targets" : ""
+          }, {
+            "learningPaths" : "",
+            "sceneMetadata" : {
+              "extension" : "",
+              "sceneId" : 0,
+              "name" : "name",
+              "description" : "description",
+              "landmark" : {
+                "size" : 1,
+                "name" : "name",
+                "sceneId" : 5,
+                "contentId" : 5,
+                "description" : "description",
+                "type" : { },
+                "content" : "content",
+                "fileId" : 6
+              },
+              "projectId" : 2
+            },
+            "contents" : "",
+            "scenarios" : "",
+            "targets" : ""
+          } ],
+          "projectName" : "projectName",
+          "projectID" : 0
+        }
+      }
+    },
+    "TeamResponseData" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/TeamData"
+        }
+      },
+      "example" : {
+        "data" : {
+          "memebers" : "",
+          "team" : {
+            "teamId" : 0,
+            "name" : "name",
+            "adminId" : "",
+            "description" : "description"
+          }
+        }
+      }
+    },
+    "ProjectResponseData" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/SceneMetadata"
+        }
+      },
+      "example" : {
+        "data" : {
+          "extension" : "",
+          "sceneId" : 0,
+          "name" : "name",
+          "description" : "description",
+          "landmark" : {
+            "size" : 1,
+            "name" : "name",
+            "sceneId" : 5,
+            "contentId" : 5,
+            "description" : "description",
+            "type" : { },
+            "content" : "content",
+            "fileId" : 6
+          },
+          "projectId" : 2
+        }
+      }
+    },
+    "ScenesResponseData" : {
+      "type" : "object",
+      "properties" : {
+        "projectID" : {
+          "type" : "integer"
+        },
+        "projectName" : {
+          "type" : "string"
+        },
+        "scenes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Scene"
+          }
+        }
+      },
+      "example" : {
+        "scenes" : [ {
+          "learningPaths" : "",
+          "sceneMetadata" : {
+            "extension" : "",
+            "sceneId" : 0,
+            "name" : "name",
+            "description" : "description",
+            "landmark" : {
+              "size" : 1,
+              "name" : "name",
+              "sceneId" : 5,
+              "contentId" : 5,
+              "description" : "description",
+              "type" : { },
+              "content" : "content",
+              "fileId" : 6
+            },
+            "projectId" : 2
+          },
+          "contents" : "",
+          "scenarios" : "",
+          "targets" : ""
+        }, {
+          "learningPaths" : "",
+          "sceneMetadata" : {
+            "extension" : "",
+            "sceneId" : 0,
+            "name" : "name",
+            "description" : "description",
+            "landmark" : {
+              "size" : 1,
+              "name" : "name",
+              "sceneId" : 5,
+              "contentId" : 5,
+              "description" : "description",
+              "type" : { },
+              "content" : "content",
+              "fileId" : 6
+            },
+            "projectId" : 2
+          },
+          "contents" : "",
+          "scenarios" : "",
+          "targets" : ""
+        } ],
+        "projectName" : "projectName",
+        "projectID" : 0
+      }
+    },
+    "UserAccountData" : {
+      "type" : "object",
+      "properties" : {
+        "userAccount" : {
+          "$ref" : "#/definitions/UserAccount"
+        },
+        "assignedTeams" : {
+          "$ref" : "#/definitions/UserTeams"
+        },
+        "assignedProjects" : {
+          "$ref" : "#/definitions/Projects"
+        }
+      },
+      "description" : "A given user with account data, authorizarion data, assigned teams and assigned projects.",
+      "example" : {
+        "assignedProjects" : "",
+        "userAccount" : {
+          "person" : {
+            "firstName" : "firstName",
+            "lastName" : "lastName",
+            "zipCode" : "zipCode",
+            "country" : "country",
+            "address" : "address",
+            "officePhone" : "officePhone",
+            "city" : "city",
+            "description" : "description",
+            "personId" : 6,
+            "company" : "company",
+            "cellPhone" : "cellPhone",
+            "eMail" : "eMail"
+          },
+          "user" : {
+            "lockedOut" : "",
+            "userType" : { },
+            "isDisabled" : "isDisabled",
+            "login" : "login",
+            "userId" : 0,
+            "passwordHash" : "passwordHash",
+            "lastPasswordChanged" : "2000-01-23T04:56:07.000+00:00"
+          }
+        },
+        "assignedTeams" : ""
+      }
+    },
+    "TeamData" : {
+      "type" : "object",
+      "properties" : {
+        "team" : {
+          "$ref" : "#/definitions/Team"
+        },
+        "memebers" : {
+          "$ref" : "#/definitions/Members"
+        }
+      },
+      "description" : "The data of the team with its member.",
+      "example" : {
+        "memebers" : "",
+        "team" : {
+          "teamId" : 0,
+          "name" : "name",
+          "adminId" : "",
+          "description" : "description"
+        }
+      }
+    },
+    "UserAccount" : {
+      "type" : "object",
+      "properties" : {
+        "user" : {
+          "$ref" : "#/definitions/User"
+        },
+        "person" : {
+          "$ref" : "#/definitions/Person"
+        }
+      },
+      "description" : "The user account.",
+      "example" : {
+        "person" : {
+          "firstName" : "firstName",
+          "lastName" : "lastName",
+          "zipCode" : "zipCode",
+          "country" : "country",
+          "address" : "address",
+          "officePhone" : "officePhone",
+          "city" : "city",
+          "description" : "description",
+          "personId" : 6,
+          "company" : "company",
+          "cellPhone" : "cellPhone",
+          "eMail" : "eMail"
+        },
+        "user" : {
+          "lockedOut" : "",
+          "userType" : { },
+          "isDisabled" : "isDisabled",
+          "login" : "login",
+          "userId" : 0,
+          "passwordHash" : "passwordHash",
+          "lastPasswordChanged" : "2000-01-23T04:56:07.000+00:00"
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "userId" : {
+          "type" : "integer",
+          "description" : "The user Id."
+        },
+        "userType" : {
+          "$ref" : "#/definitions/UserType"
+        },
+        "login" : {
+          "type" : "string",
+          "description" : "The user login."
+        },
+        "passwordHash" : {
+          "type" : "string",
+          "description" : "The hashed password."
+        },
+        "lastPasswordChanged" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "The last date when the password is changed."
+        },
+        "isDisabled" : {
+          "type" : "string",
+          "description" : "Check for account abilitation."
+        },
+        "lockedOut" : {
+          "description" : "Check for account validation."
+        }
+      },
+      "description" : "Data about the user.",
+      "example" : {
+        "lockedOut" : "",
+        "userType" : { },
+        "isDisabled" : "isDisabled",
+        "login" : "login",
+        "userId" : 0,
+        "passwordHash" : "passwordHash",
+        "lastPasswordChanged" : "2000-01-23T04:56:07.000+00:00"
+      }
+    },
+    "Person" : {
+      "type" : "object",
+      "properties" : {
+        "personId" : {
+          "type" : "integer",
+          "description" : "The person id."
+        },
+        "firstName" : {
+          "type" : "string",
+          "description" : "Person first name."
+        },
+        "lastName" : {
+          "type" : "string",
+          "description" : "Person surname."
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "officePhone" : {
+          "type" : "string"
+        },
+        "cellPhone" : {
+          "type" : "string"
+        },
+        "eMail" : {
+          "type" : "string"
+        },
+        "company" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "zipCode" : {
+          "type" : "string"
+        },
+        "city" : {
+          "type" : "string"
+        },
+        "country" : {
+          "type" : "string"
+        }
+      },
+      "description" : "Data about the person.",
+      "example" : {
+        "firstName" : "firstName",
+        "lastName" : "lastName",
+        "zipCode" : "zipCode",
+        "country" : "country",
+        "address" : "address",
+        "officePhone" : "officePhone",
+        "city" : "city",
+        "description" : "description",
+        "personId" : 6,
+        "company" : "company",
+        "cellPhone" : "cellPhone",
+        "eMail" : "eMail"
+      }
+    },
+    "UserTeams" : {
+      "type" : "array",
+      "description" : "The list of teams for which the current user is member and/or Admin.",
+      "items" : {
+        "$ref" : "#/definitions/Team"
+      }
+    },
+    "Projects" : {
+      "type" : "array",
+      "description" : "The list of projects of the assigned teams",
+      "items" : {
+        "$ref" : "#/definitions/Project"
+      }
+    },
+    "Members" : {
+      "type" : "array",
+      "description" : "The list of members of the team.",
+      "items" : {
+        "$ref" : "#/definitions/UserAccount"
+      }
+    },
+    "Team" : {
+      "type" : "object",
+      "properties" : {
+        "teamId" : {
+          "type" : "integer",
+          "description" : "The id of the team."
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the team."
+        },
+        "adminId" : {
+          "description" : "The id of the admin user."
+        },
+        "description" : {
+          "type" : "string"
+        }
+      },
+      "description" : "Data about a team.",
+      "example" : {
+        "teamId" : 0,
+        "name" : "name",
+        "adminId" : "",
+        "description" : "description"
+      }
+    },
+    "Project" : {
+      "type" : "object",
+      "properties" : {
+        "teamId" : {
+          "type" : "integer",
+          "description" : "The id of the project."
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the project."
+        },
+        "projectId" : {
+          "description" : "The id of the belonging team."
+        },
+        "description" : {
+          "type" : "string"
+        }
+      },
+      "description" : "Data about a project",
+      "example" : {
+        "teamId" : 0,
+        "name" : "name",
+        "description" : "description",
+        "projectId" : ""
+      }
+    },
+    "SceneMetadata" : {
+      "type" : "object",
+      "properties" : {
+        "sceneId" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "landmark" : {
+          "$ref" : "#/definitions/File"
+        },
+        "extension" : {
+          "description" : "The extension of the file."
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "projectId" : {
+          "type" : "integer"
+        }
+      },
+      "description" : "General info about the scene.",
+      "example" : {
+        "extension" : "",
+        "sceneId" : 0,
+        "name" : "name",
+        "description" : "description",
+        "landmark" : {
+          "size" : 1,
+          "name" : "name",
+          "sceneId" : 5,
+          "contentId" : 5,
+          "description" : "description",
+          "type" : { },
+          "content" : "content",
+          "fileId" : 6
+        },
+        "projectId" : 2
+      }
+    },
+    "Scene" : {
+      "type" : "object",
+      "properties" : {
+        "sceneMetadata" : {
+          "$ref" : "#/definitions/SceneMetadata"
+        },
+        "scenarios" : {
+          "$ref" : "#/definitions/Scenarios"
+        },
+        "learningPaths" : {
+          "$ref" : "#/definitions/LearningPaths"
+        },
+        "targets" : {
+          "$ref" : "#/definitions/Targets"
+        },
+        "contents" : {
+          "$ref" : "#/definitions/Contents"
+        }
+      },
+      "description" : "Data of the complete structure of the scene.",
+      "example" : {
+        "learningPaths" : "",
+        "sceneMetadata" : {
+          "extension" : "",
+          "sceneId" : 0,
+          "name" : "name",
+          "description" : "description",
+          "landmark" : {
+            "size" : 1,
+            "name" : "name",
+            "sceneId" : 5,
+            "contentId" : 5,
+            "description" : "description",
+            "type" : { },
+            "content" : "content",
+            "fileId" : 6
+          },
+          "projectId" : 2
+        },
+        "contents" : "",
+        "scenarios" : "",
+        "targets" : ""
+      }
+    },
+    "Scenarios" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Scenario"
+      }
+    },
+    "LearningPaths" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/LearningPath"
+      }
+    },
+    "Targets" : {
+      "type" : "array",
+      "description" : "A point in the Landmark defining a step needed for a given task. Build up a LearningPath.",
+      "items" : {
+        "$ref" : "#/definitions/Target"
+      }
+    },
+    "Contents" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Content"
+      }
+    },
+    "Scenario" : {
+      "type" : "object",
+      "properties" : {
+        "scenarioId" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "parentScenes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Scene"
+          }
+        },
+        "learningPathIDs" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/LearningPath"
+          }
+        },
+        "structureType" : {
+          "type" : "string"
+        },
+        "sceneId" : {
+          "type" : "integer"
+        }
+      },
+      "description" : "The set of informative views in which the scene is subdivided."
+    },
+    "LearningPath" : {
+      "type" : "object",
+      "properties" : {
+        "learningPathId" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "scenarioIds" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        },
+        "targetIDs" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        },
+        "sceneId" : {
+          "type" : "integer"
+        }
+      },
+      "description" : "The paths defining the steps to complete a learning task. Build up a scenario."
+    },
+    "Target" : {
+      "type" : "object",
+      "properties" : {
+        "targetId" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "position" : {
+          "type" : "string"
+        },
+        "learningPathIds" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        },
+        "contentIds" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        },
+        "sceneId" : {
+          "type" : "integer"
+        }
+      },
+      "description" : "A point in the Landmark defining a step needed for a given task. Build up a LearningPath."
+    },
+    "Content" : {
+      "type" : "object",
+      "properties" : {
+        "contentId" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "contentFile" : {
+          "$ref" : "#/definitions/File"
+        },
+        "targetIds" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        },
+        "sceneId" : {
+          "type" : "integer"
+        }
+      },
+      "description" : "The contents that fills a target with multimedia. Build up a Target."
+    },
+    "UserType" : {
+      "type" : "string",
+      "description" : "The user type: Admin or member.",
+      "enum" : [ "admin", "member" ],
+      "x-enum-string" : true
+    },
+    "FileResponse" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/FileData"
+        }
+      },
+      "description" : "The File response",
+      "example" : {
+        "data" : {
+          "data" : {
+            "size" : 1,
+            "name" : "name",
+            "sceneId" : 5,
+            "contentId" : 5,
+            "description" : "description",
+            "type" : { },
+            "content" : "content",
+            "fileId" : 6
+          }
+        }
+      }
+    },
+    "FileData" : {
+      "type" : "object",
+      "properties" : {
+        "data" : {
+          "$ref" : "#/definitions/File"
+        }
+      },
+      "example" : {
+        "data" : {
+          "size" : 1,
+          "name" : "name",
+          "sceneId" : 5,
+          "contentId" : 5,
+          "description" : "description",
+          "type" : { },
+          "content" : "content",
+          "fileId" : 6
+        }
+      }
+    },
+    "File" : {
+      "type" : "object",
+      "properties" : {
+        "fileId" : {
+          "type" : "integer",
+          "description" : "The id of the file."
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "The name of the file."
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "type" : {
+          "$ref" : "#/definitions/ContentType"
+        },
+        "size" : {
+          "type" : "integer",
+          "description" : "The file size."
+        },
+        "sceneId" : {
+          "type" : "integer",
+          "description" : "The belonging scene."
+        },
+        "contentId" : {
+          "type" : "integer",
+          "description" : "The belonging content. If this is null, the file is the landmark and has only a belonging scene."
+        },
+        "content" : {
+          "type" : "string",
+          "format" : "base64",
+          "description" : "The file content."
+        }
+      },
+      "description" : "The file data.",
+      "example" : {
+        "size" : 1,
+        "name" : "name",
+        "sceneId" : 5,
+        "contentId" : 5,
+        "description" : "description",
+        "type" : { },
+        "content" : "content",
+        "fileId" : 6
+      }
+    },
+    "ContentType" : {
+      "type" : "string",
+      "description" : "The type of the file content.",
+      "enum" : [ "text", "image", "video", "model" ],
+      "x-enum-string" : true
+    },
+    "ErrorResponse" : {
+      "type" : "object",
+      "properties" : {
+        "error" : {
+          "$ref" : "#/definitions/Error"
+        }
+      },
+      "description" : "Error response information."
+    },
+    "Error" : {
+      "properties" : {
+        "code" : {
+          "type" : "integer",
+          "description" : "Represents the code for thi error."
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "A human readable message providing details about the error."
+        },
+        "errors" : {
+          "type" : "array",
+          "description" : "Container for any readable information.",
+          "items" : {
+            "$ref" : "#/definitions/Error_errors"
+          }
+        }
+      },
+      "description" : "Error information"
+    },
+    "Error_errors" : {
+      "properties" : {
+        "message" : {
+          "type" : "string",
+          "description" : "The message describing the error."
+        }
+      }
+    }
+  }
+}
