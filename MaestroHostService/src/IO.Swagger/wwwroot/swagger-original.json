@@ -11,16 +11,16 @@
   "host" : "virtserver.swaggerhub.com",
   "basePath" : "/TheEdgeCompany/MaestroHostService/1.0.0",
   "tags" : [ {
-    "name" : "myAccount",
+    "name" : "MyAccount",
     "description" : "Calls for logged user account"
   }, {
-    "name" : "teams",
+    "name" : "Teams",
     "description" : "Handles user's teams"
   }, {
-    "name" : "projects",
+    "name" : "Projects",
     "description" : "Handles projects assigned to teams and the scenes structure"
   }, {
-    "name" : "files",
+    "name" : "Files",
     "description" : "Allows to upload download file streams for the contents of the scene"
   } ],
   "schemes" : [ "https" ],
@@ -32,7 +32,7 @@
   "paths" : {
     "/myAccount" : {
       "get" : {
-        "tags" : [ "myAccount" ],
+        "tags" : [ "MyAccount" ],
         "summary" : "returns logged user account",
         "description" : "Returns the account, authorizations, teams and projecs of the current logged user.\n",
         "operationId" : "GetMyAccount",
@@ -65,7 +65,7 @@
     },
     "/myAccount/password" : {
       "put" : {
-        "tags" : [ "myAccount" ],
+        "tags" : [ "MyAccount" ],
         "description" : "Update the password for the current user.",
         "operationId" : "PutMyAccountPassword",
         "parameters" : [ {
